@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  # Serviço que irá rodar o node-teste
+  # Serviço que irá rodar o node
   node:
     # Faz o build do Dockerfile da pasta atual e utiliza o resultado desse build
     # como a imagem do container
