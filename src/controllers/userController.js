@@ -22,24 +22,17 @@ const createNewUser = async (req, res) => {
   }
 };
 
-// const create = async (req, res) => {
-//   const { title, author, pageQuantity } = req.body;
-//   const book = await BookService.create({ title, author, pageQuantity });
-
-//   res.status(201).json(book);
-// };
-
-// const getAll = async (_req, res) => {
-//     try {
-//       const users = await UserService.getAll();
-//       return res.status(200).json(users);
-//     } catch (e) {
-//       console.log(e.message);
-//       res.status(500).json({ message: 'Ocorreu um erro' });
-//     }
-//   };
+const getAll = async (_req, res) => {
+    try {
+      const users = await UserService.getAll();
+      return res.status(200).json(users);
+    } catch (e) {
+      console.log(e.message);
+      res.status(500).json({ message: 'Ocorreu um erro' });
+    }
+  };
 
 module.exports = {
   createNewUser,
-  // getAll,
+  getAll,
 };

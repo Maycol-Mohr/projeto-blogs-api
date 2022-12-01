@@ -10,22 +10,17 @@ const createUser = async ({ displayName, email, password, image }) => {
   return newUser;
 };
 
-// const create = async ({ title, author, pageQuantity }) => {
-//   const book = await Book.create({ title, author, pageQuantity });
-//   return book;
-// };
+const getAll = async () => {
+  const users = await User.findAll({ attributes: { exclude: ['password'] } });
 
-// const getAll = async () => {
-//   const users = await User.findAll();
-
-//   return users;
-// };
+  return users;
+};
 
 // const getByUserId = (userId) => User.findByPk(userId);
 
 module.exports = {
   createUser,
-  // getAll,
+  getAll,
   getByEmail,
   // getByUserId,
 };

@@ -8,7 +8,7 @@ const login = require('./controllers/login');
 const validateEmail = require('./middlarews/validateEmail');
 const validateName = require('./middlarews/validateName');
 const validatePassword = require('./middlarews/validatePassword');
-// const validateJWT = require('./auth/validateJWT');
+const validateJWT = require('./auth/validateJWT');
 
 // const validateJWT = require('./auth/validateJWT');
 // ...
@@ -25,7 +25,7 @@ const apiRoutes = express.Router();
 // apiRoutes.get('/api/posts', validateJWT, routes.getPosts);
 
 // apiRoutes.get('/posts', UserPostsController.getAllPosts);
-// apiRoutes.get('/users', validateJWT, UserController.getAll);
+apiRoutes.get('/user', validateJWT, UserController.getAll);
 apiRoutes.post('/user', validateName, 
 validateEmail, 
 validatePassword, 
