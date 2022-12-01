@@ -16,8 +16,6 @@ const getAll = async () => {
   return users;
 };
 
-// const getByUserId = (userId) => User.findByPk(userId);
-
 const getByUserId = (id) => User.findOne({
   where: { id },
   attributes: { exclude: ['password'] },

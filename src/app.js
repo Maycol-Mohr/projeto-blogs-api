@@ -3,14 +3,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const UserController = require('./controllers/userController');
+const CategoryController = require('./controllers/categoryController');
 // const UserPostsController = require('./controllers/blogPostsController');
 const login = require('./controllers/login');
 const validateEmail = require('./middlarews/validateEmail');
 const validateName = require('./middlarews/validateName');
 const validatePassword = require('./middlarews/validatePassword');
 const validateJWT = require('./auth/validateJWT');
+const validateCategory = require('./middlarews/validateCategory');
 
-// const validateJWT = require('./auth/validateJWT');
 // ...
 
 const app = express();
@@ -33,6 +34,9 @@ validatePassword,
 UserController.createNewUser);
 // apiRoutes.get('/api/users', routes.getUsers);
 apiRoutes.post('/login', login);
+apiRoutes.post('/categories', validateCategory, validateJWT, CategoryController.createNewCategory);
+apiRoutes.get('/categories', validateJWT, CategoryController.getAllCategories);
+// apiRoutes.get('/categories/:id', CategoryController.getCategoryId);
 
 app.use(apiRoutes);
 
