@@ -1,9 +1,16 @@
 const express = require('express');
 
 const bodyParser = require('body-parser');
-const routes = require('./routes');
 
-const validateJWT = require('./auth/validateJWT');
+const UserController = require('./controllers/userController');
+// const UserPostsController = require('./controllers/blogPostsController');
+const login = require('./controllers/login');
+const validateEmail = require('./middlarews/validateEmail');
+const validateName = require('./middlarews/validateName');
+const validatePassword = require('./middlarews/validatePassword');
+// const validateJWT = require('./auth/validateJWT');
+
+// const validateJWT = require('./auth/validateJWT');
 // ...
 
 const app = express();
@@ -15,12 +22,16 @@ app.use(express.json());
 
 const apiRoutes = express.Router();
 
-apiRoutes.get('/api/posts', validateJWT, routes.getPosts);
+// apiRoutes.get('/api/posts', validateJWT, routes.getPosts);
 
-// apiRoutes.get('/api/posts', routes.getPosts);
-// apiRoutes.post('/api/users', routes.createUsers);
+// apiRoutes.get('/posts', UserPostsController.getAllPosts);
+// apiRoutes.get('/users', validateJWT, UserController.getAll);
+apiRoutes.post('/user', validateName, 
+validateEmail, 
+validatePassword, 
+UserController.createNewUser);
 // apiRoutes.get('/api/users', routes.getUsers);
-apiRoutes.post('/login', routes.login);
+apiRoutes.post('/login', login);
 
 app.use(apiRoutes);
 
@@ -29,28 +40,3 @@ app.use(apiRoutes);
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
-
-// const express = require('express');
-// const bodyParser = require('body-parser');
-// const routes = require('./routes');
-
-// /* Aqui, importamos nossa função que valida se o usuário está ou não autenticado */
-// const validateJWT = require('./auth/validateJWT');
-
-// const app = express();
-
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
-
-// const apiRoutes = express.Router();
-
-// apiRoutes.get('/api/posts', validateJWT, routes.getPosts);
-
-// // apiRoutes.get('/api/posts', routes.getPosts);
-// apiRoutes.post('/api/users', routes.createUsers);
-// apiRoutes.get('/api/users', routes.getUsers);
-// apiRoutes.post('/api/login', routes.login);
-
-// app.use(apiRoutes);
-
-// module.exports = app;
