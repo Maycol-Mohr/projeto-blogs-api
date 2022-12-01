@@ -18,9 +18,14 @@ const getAll = async () => {
 
 // const getByUserId = (userId) => User.findByPk(userId);
 
+const getByUserId = (id) => User.findOne({
+  where: { id },
+  attributes: { exclude: ['password'] },
+});
+
 module.exports = {
   createUser,
   getAll,
   getByEmail,
-  // getByUserId,
+  getByUserId,
 };

@@ -25,6 +25,7 @@ const apiRoutes = express.Router();
 // apiRoutes.get('/api/posts', validateJWT, routes.getPosts);
 
 // apiRoutes.get('/posts', UserPostsController.getAllPosts);
+apiRoutes.get('/user/:id', validateJWT, UserController.getUserId);
 apiRoutes.get('/user', validateJWT, UserController.getAll);
 apiRoutes.post('/user', validateName, 
 validateEmail, 
