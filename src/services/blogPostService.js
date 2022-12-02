@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV || 'development';
 const sequelize = new Sequelize(config[env]);
 
 // const createBlogPost = async ({ id, title, content }) => {
-// const newBlogPost = await BlogPost.create({ id, title, content });
+// const newBlogPost = await BlogPost.create({ id, title, content }); teste
 
 // return newBlogPost;
 // };
