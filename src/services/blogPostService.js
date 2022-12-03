@@ -32,12 +32,14 @@ const getPostId = (id) => BlogPost.findOne({
       ],
 });
 
-const createBlogPost = async (id, title, content) => {
+const createBlogPost = async (id, title, content, categoryIds) => {
     const t = await sequelize.transaction();
     try {
       // Depois executamos as operações
       const result = await sequelize.transaction(async () => {
-        const newPost = await BlogPost.create({ id, title, content }, { transaction: t });
+        const newPost = await BlogPost.create(
+          { id, title, content, categoryIds }, { transaction: t },
+);
          // const newPatient = await Patient.create({ fullname, planId: planId.planId }, { transaction: t });
   
         return newPost;
@@ -54,8 +56,16 @@ const createBlogPost = async (id, title, content) => {
     }
   };
 
+  const updatePost = async (id, { title, content }) => {
+    const [updated] = await BlogPost.update({ title, content }, 
+      { where: { id } });
+  
+    return updated;
+  };
+
 module.exports = {
   createBlogPost,
   getAllBlogPost,
   getPostId,
+  updatePost,
 };

@@ -13,6 +13,7 @@ const validateJWT = require('./auth/validateJWT');
 const validateCategory = require('./middlarews/validateCategory');
 const validateFields = require('./middlarews/validateFields');
 const validateCategoryId = require('./middlarews/validateCategoryId');
+const validateFieldsPutPost = require('./middlarews/validateFieldsPutPost');
 
 // ...
 
@@ -24,6 +25,10 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 const apiRoutes = express.Router();
+
+apiRoutes.put('/post/:id', validateJWT,  
+validateFieldsPutPost, 
+BlogPostController.updateBlogPost);
 
 apiRoutes.get('/post/:id', validateJWT, BlogPostController.getPostId);
 apiRoutes.get('/user/:id', validateJWT, UserController.getUserId);
