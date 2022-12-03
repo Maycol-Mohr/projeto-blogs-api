@@ -45,7 +45,7 @@ const createBlogPost = async (id, title, content, categoryIds) => {
         return newPost;
       });
       return result;
-      // Se chegou até aqui é porque as operações foram concluídas com sucesso,
+      // Se chegou até aqui é porque as operações foram concluídas com sucesso, teste
       // não sendo necessário finalizar a transação manualmente.
       // `result` terá o resultado da transação, no caso um empregado e o endereço cadastrado
     } catch (e) {
