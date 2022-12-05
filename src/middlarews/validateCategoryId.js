@@ -1,4 +1,4 @@
-// middlewares/validateEmail.js
+// middlewares/validateEmail.js teste
 
 const { getByCategoryId } = require('../services/categoryService');
 
