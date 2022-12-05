@@ -1,11 +1,11 @@
-const Sequelize = require('sequelize');
-const { BlogPost, User, Category } = require('../models');
+// const Sequelize = require('sequelize');
+const { BlogPost, User, Category, PostCategory } = require('../models');
 
-const config = require('../config/config');
+// const config = require('../config/config');
 
-const env = process.env.NODE_ENV || 'development';
+// const env = process.env.NODE_ENV || 'development';
 // Ajustamos para usar a configuração correta para nosso ambiente
-const sequelize = new Sequelize(config[env]);
+// const sequelize = new Sequelize(config[env]);
 
 // const createBlogPost = async ({ id, title, content }) => {
 // const newBlogPost = await BlogPost.create({ id, title, content }); teste
@@ -32,35 +32,27 @@ const getPostId = (id) => BlogPost.findOne({
       ],
 });
 
-const createBlogPost = async (id, title, content, categoryIds) => {
-    const t = await sequelize.transaction();
+const createBlogPost = async (title, content, userId, categoryIds) => {
     try {
-      // Depois executamos as operações
-      const result = await sequelize.transaction(async () => {
         const newPost = await BlogPost.create(
-          { id, title, content, categoryIds }, { transaction: t },
-);
-         // const newPatient = await Patient.create({ fullname, planId: planId.planId }, { transaction: t });
-  
+          { title, content, userId },
+        );
+        const postCategories = categoryIds
+        .map((categoryId) => ({ postId: newPost.id, categoryId }));
+        await PostCategory.bulkCreate(
+          postCategories,
+        );
+
         return newPost;
-      });
-      return result;
-      // Se chegou até aqui é porque as operações foram concluídas com sucesso, 
-      // não sendo necessário finalizar a transação manualmente.
-      // `result` terá o resultado da transação, no caso um empregado e o endereço cadastrado
     } catch (e) {
-      // Se entrou nesse bloco é porque alguma operação falhou.
-      // Nesse caso, o sequelize irá reverter as operações anteriores com a função rollback, não sendo necessário fazer manualmente
       console.log(e);
-      throw e; // Jogamos o erro para a controller tratar
+      throw e; 
     }
   };
 
   const updatePost = async (id, { title, content }) => {
-    const [updated] = await BlogPost.update({ title, content }, 
+    await BlogPost.update({ title, content }, 
       { where: { id } });
-  
-    return updated;
   };
 
 module.exports = {

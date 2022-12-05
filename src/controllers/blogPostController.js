@@ -3,8 +3,8 @@ const UserBlogPost = require('../services/blogPostService');
 const createNewBlogPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
-    const { id } = req.user;
-    const newBlogPost = await UserBlogPost.createBlogPost({ id, title, content, categoryIds });
+    const { userId } = req.user;
+    const newBlogPost = await UserBlogPost.createBlogPost(title, content, userId, categoryIds);
    
     return res.status(201).json(newBlogPost);
   } catch (e) {
@@ -39,13 +39,15 @@ const getPostId = async (req, res) => {
 
 const updateBlogPost = async (req, res) => {
   const { id } = req.params;
+  const post = await UserBlogPost.getPostId(id);
   const { title, content } = req.body;
+  const { userId } = req.user;
+  if (post.id !== userId) return res.status(401).json({ message: 'Unauthorized user' });
   
-  const updatePost = await UserBlogPost.updatePost(id, { title, content });
+  await UserBlogPost.updatePost(id, { title, content });
 
-  if (!updatePost) return res.status(401).json({ message: 'Unauthorized user' });
-
-  res.status(200).json({ message: 'Post updated' });
+  const postUpdated = await UserBlogPost.getPostId(id);
+  res.status(200).json(postUpdated);
 };
 
 module.exports = {

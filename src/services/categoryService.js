@@ -13,13 +13,13 @@ const getAllCategories = async () => {
   return categories;
 };
 
-// const getByCategoryId = (id) => Category.findOne({
-//   where: { id },
-// });
+const getByCategoryId = (id) => Category.findOne({
+  where: { id },
+});
 
 module.exports = {
   getByCategory,
   createCategory,
   getAllCategories,
-//   getByCategoryId,
+  getByCategoryId,
 };
