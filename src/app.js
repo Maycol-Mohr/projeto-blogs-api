@@ -30,6 +30,8 @@ apiRoutes.put('/post/:id', validateJWT,
 validateFieldsPutPost, 
 BlogPostController.updateBlogPost);
 
+apiRoutes.delete('/post/:id', validateJWT, BlogPostController.removePostController);
+
 apiRoutes.get('/post/:id', validateJWT, BlogPostController.getPostId);
 apiRoutes.get('/user/:id', validateJWT, UserController.getUserId);
 apiRoutes.get('/user', validateJWT, UserController.getAll);

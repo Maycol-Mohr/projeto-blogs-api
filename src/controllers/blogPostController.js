@@ -50,9 +50,22 @@ const updateBlogPost = async (req, res) => {
   res.status(200).json(postUpdated);
 };
 
+const removePostController = async (req, res) => {
+  const { id } = req.params;
+  const post = await UserBlogPost.getPostId(id);
+  if (!post) return res.status(404).json({ message: 'Post does not exist' });
+  const { userId } = req.user;
+  if (post.user.id !== userId) return res.status(401).json({ message: 'Unauthorized user' });
+
+  await UserBlogPost.removePostService(id);
+
+  res.status(204).json();
+};
+
 module.exports = {
   createNewBlogPost,
   getAllBlogPosts,
   getPostId,
   updateBlogPost,
+  removePostController,
 };
