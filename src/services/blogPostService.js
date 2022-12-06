@@ -1,17 +1,6 @@
 // const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, User, Category, PostCategory } = require('../models');
-
-// const config = require('../config/config');
-
-// const env = process.env.NODE_ENV || 'development';
-// Ajustamos para usar a configuração correta para nosso ambiente
-// const sequelize = new Sequelize(config[env]);
-
-// const createBlogPost = async ({ id, title, content }) => {
-// const newBlogPost = await BlogPost.create({ id, title, content }); teste
-
-// return newBlogPost;
-// };
 
 const getAllBlogPost = async () => {
     const blogPosts = await BlogPost.findAll({
@@ -23,6 +12,28 @@ const getAllBlogPost = async () => {
   
     return blogPosts;
   };
+
+  const getByTitleContent = async (q) => {
+    const teste = await BlogPost.findAll({
+      include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories', through: { attributes: [] } },
+        ],
+        where: { [Op.or]: [
+          { title: { [Op.substring]: q } }, 
+          { content: { [Op.substring]: q } },
+        ],
+      },
+  });
+    return teste;
+  };
+
+  // {
+  //   [Op.or]: [
+  //     { authorId: 12 },
+  //     { authorId: 13 }
+  //   ]
+  // }
 
 const getPostId = (id) => BlogPost.findOne({
     where: { id },
@@ -69,4 +80,5 @@ module.exports = {
   getPostId,
   updatePost,
   removePostService,
+  getByTitleContent,
 };

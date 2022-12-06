@@ -26,6 +26,9 @@ app.use(express.json());
 
 const apiRoutes = express.Router();
 
+apiRoutes.get('/post/search', validateJWT, BlogPostController.getBySearchController);
+// apiRoutes.get('/post/search', (req, res) => res.status(200).json({ message: 'olá' }));
+
 apiRoutes.put('/post/:id', validateJWT,  
 validateFieldsPutPost, 
 BlogPostController.updateBlogPost);

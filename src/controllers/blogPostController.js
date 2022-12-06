@@ -1,5 +1,11 @@
 const UserBlogPost = require('../services/blogPostService');
 
+const getBySearchController = async (req, res) => {
+  const { q } = req.query;
+  const posts = await UserBlogPost.getByTitleContent(q);
+  return res.status(200).json(posts);
+};
+
 const createNewBlogPost = async (req, res) => {
   try {
     const { title, content, categoryIds } = req.body;
@@ -68,4 +74,5 @@ module.exports = {
   getPostId,
   updateBlogPost,
   removePostController,
+  getBySearchController,
 };
