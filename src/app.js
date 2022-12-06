@@ -31,6 +31,7 @@ validateFieldsPutPost,
 BlogPostController.updateBlogPost);
 
 apiRoutes.delete('/post/:id', validateJWT, BlogPostController.removePostController);
+apiRoutes.delete('/user/me', validateJWT, UserController.removeUserController);
 
 apiRoutes.get('/post/:id', validateJWT, BlogPostController.getPostId);
 apiRoutes.get('/user/:id', validateJWT, UserController.getUserId);

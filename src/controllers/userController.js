@@ -46,8 +46,23 @@ const getAll = async (_req, res) => {
     }
   };
 
+const removeUserController = async (req, res) => {
+  try {
+  const { userId } = req.user;
+
+  const removed = await UserService.removeUserService(userId);
+
+  if (!removed) return res.status(404).json({ message: 'User not found' });
+
+  res.status(204).json();
+  } catch (e) {
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
   createNewUser,
   getAll,
   getUserId,
+  removeUserController,
 };
