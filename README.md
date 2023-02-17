@@ -1,4 +1,6 @@
-# :construction: README customizado em construção ! :construction:
+# Projeto blogs api.
+
+Projeto com uma api sobre Arquitetura SOLID e ORM.
 <!-- Olá, Tryber!
 Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
 
