@@ -45,15 +45,10 @@ const getPostId = (id) => BlogPost.findOne({
 
 const createBlogPost = async (title, content, userId, categoryIds) => {
     try {
-        const newPost = await BlogPost.create(
-          { title, content, userId },
-        );
+        const newPost = await BlogPost.create({ title, content, userId });
         const postCategories = categoryIds
         .map((categoryId) => ({ postId: newPost.id, categoryId }));
-        await PostCategory.bulkCreate(
-          postCategories,
-        );
-
+        await PostCategory.bulkCreate(postCategories);
         return newPost;
     } catch (e) {
       console.log(e);
@@ -62,15 +57,11 @@ const createBlogPost = async (title, content, userId, categoryIds) => {
   };
 
   const updatePost = async (id, { title, content }) => {
-    await BlogPost.update({ title, content }, 
-      { where: { id } });
+    await BlogPost.update({ title, content }, { where: { id } });
   };
 
   const removePostService = async (id) => {
-    const removed = await BlogPost.destroy(
-      { where: { id } },
-    );
-  
+    const removed = await BlogPost.destroy({ where: { id } });
     return removed;
   };
 
